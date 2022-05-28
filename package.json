@@ -1,23 +1,40 @@
 {
   "name": "gmail",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Wrapper for Gmail with native notifications and badge",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
     "pack": "electron-builder --dir",
+    "release": "electron-builder",
     "dist": "electron-builder"
   },
   "build": {
-    "appId": "com.netflix.gmail",
-    "productName": "Gmail"
+    "appId": "com.robmcvey.gmaildesktop",
+    "productName": "Gmail",
+    "publish": "github",
+    "afterSign": "scripts/notarize.js",
+    "dmg": {
+      "sign": false
+    },
+    "mac": {
+      "target": "dmg",
+      "category": "public.app-category.utilities",
+      "identity": "Robert Mcvey (ECCNQLX65V)",
+      "hardenedRuntime": true,
+      "gatekeeperAssess": true,
+      "timestamp": "http://timestamp.apple.com/ts01",
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.plist"
+    }
   },
   "author": "Rob McVey",
   "license": "ISC",
-  "dependencies": {},
   "devDependencies": {
+    "dotenv": "^16.0.1",
     "electron": "^19.0.1",
-    "electron-builder": "^23.0.3"
+    "electron-builder": "^23.0.3",
+    "electron-notarize": "^1.2.1"
   }
 }
