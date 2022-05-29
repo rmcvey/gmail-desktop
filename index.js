@@ -58,5 +58,14 @@ app.on('ready', (_) => {
     win.webContents.executeJavaScript(js);
   });
 
+	win.on('swipe', (e, direction) => {
+		// Navigate the window back when the user hits their mouse back button
+		if (win.webContents.canGoBack() && direction === 'left') {
+			win.webContents.goBack()
+		} else if (win.webContents.canGoForward()) {
+			win.webContents.goForward();
+		}
+	});
+
 	win.loadURL('https://mail.google.com'); // loads this URL
 });
