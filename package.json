@@ -8,7 +8,7 @@
     "start": "electron .",
     "pack": "electron-builder --dir",
     "release": "electron-builder",
-    "dist": "electron-builder --config ./builderconfig.js"
+    "dist": "electron-builder --config ./builderconfig.js --mac --universal"
   },
   "author": "Rob McVey",
   "license": "ISC",
