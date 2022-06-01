@@ -10,14 +10,15 @@ function handleSetBadge (_, badge) {
 
 
 app.on('ready', (_) => {
-	win = new BrowserWindow({
-		width: 800,
-		height: 600,
+  win = new BrowserWindow({
+    width: 800,
+    height: 600,
     icon: path.join(__dirname, '_icons/icon.png'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
     }
 	});
+
 	const template = [
 		{
 			label: 'Help',
@@ -57,6 +58,14 @@ app.on('ready', (_) => {
 `
     win.webContents.executeJavaScript(js);
   });
+
+  win.on('swipe', (e, direction) => {
+    if (win.webContents.canGoBack() && direction === 'left') {
+      win.webContents.goBack();
+    } else if (win.webContents.canGoForward()) {
+      win.webContents.goForward();
+    }
+  })
 
 	win.loadURL('https://mail.google.com'); // loads this URL
 });
